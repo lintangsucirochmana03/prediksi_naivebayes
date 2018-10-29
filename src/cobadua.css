@@ -173,23 +173,29 @@ input[type=submit] {
     margin: auto; 
 }
 
-#tbl-impor1  {
-	font-size: 20px;
+#tbl-paging  {
+	font-size: 16px;
 	margin-left: 55px; 
 	margin-top: 20px;
     padding: 10px 2px;
     border: 1px solid #ccc;
     background-color: 	#FFFFFF;
     display: inline-block;
-    color: black;
-    text-decoration: none;
-
     
 }
 
-#tbl-impor1 a  {
+
+#tbl-paging a:hover:not(.active) {
+	background-color: #ddd;
+}
+
+#tbl-paging a  {
     color: black;
-    text-decoration: none;   
+
+    padding: 5px 10px;
+    text-decoration: none;
+    transition: background-color .3s;
+    border: 1px solid #ddd;  
 }
 
 #tbl-import td {
@@ -209,3 +215,48 @@ input[type=submit] {
     color: white;
     border: 1px solid #ccc;
 }
+
+#tbl-detail {
+	font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+    border-collapse: collapse;
+    width: 50%;
+    margin-left: 50px; 
+}
+
+#tbl-detail td {
+    border: 0px;
+    padding: 8px;
+}
+
+#tbl-detail th {
+    padding-top: 12px;
+    padding-bottom: 12px;
+    text-align: left;
+   
+}
+
+#tbl-detaildua {
+	font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+    border-collapse: collapse;
+    width: 100%;
+    margin-left: 50px; 
+    margin-top: 50px;
+}
+
+#tbl-detailtiga {
+	font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+    border-collapse: collapse;
+    width: 50%;
+    margin-left: 50px; 
+}
+#tbl-detailtiga th {
+    padding-top: 0px;
+    padding-bottom: 0px;
+    text-align: left;
+   
+}
+#tbl-detailtiga td {
+    border: 0px;
+    padding: 0px;
+}
+

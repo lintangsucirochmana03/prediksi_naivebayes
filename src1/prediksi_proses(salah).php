@@ -1,5 +1,6 @@
+
 <?php
-	include ("koneksi.php");
+    include ("koneksi.php");
 
 	//menghitung jumlah kelas target
     $querymahasiswatepat=mysqli_query($connect,"SELECT nim FROM mahasiswa WHERE status IN('tepat') ORDER BY nim;");
@@ -12,11 +13,13 @@
     $totalmahasiswalulus=mysqli_num_rows($querymahasiswalulus);
 
 
+
     //menghitung prior
     $prior_tepat = $totalmahasiswatepat / $totalmahasiswalulus;
     $prior_lambat = $totalmahasiswalambat / $totalmahasiswalulus;
 
-    
+   
+
     //Konversi data
     mysqli_query($connect,"CREATE TEMPORARY TABLE MahasiswaSementara(Nim INT (10)
         ,Prodi varchar(2)
@@ -45,21 +48,23 @@
 
     $ipknew=mysqli_fetch_assoc(mysqli_query($connect,"SELECT ipk, IF(ipk>='2', 'Terpenuhi', 'Kurang') As IPK FROM mahasiswa WHERE nim=".$dataarray[$minout-1].";") );
 
-    $tot_sksnew=mysqli_fetch_assoc(mysqli_query($connect,"SELECT tot_sks, IF(tot_sks>=semester*18, 'Terpenuhi','Kurang') As Tot_sks FROM Mahasiswa WHERE nim=".$dataarray[$minout-1].";"));
+    $tot_sksnew=mysqli_fetch_assoc(mysqli_query($connect,"SELECT tot_sks,semester, IF(tot_sks>=(20*semester)+4, 'Terpenuhi','Kurang') As Tot_sks FROM Mahasiswa WHERE nim=".$dataarray[$minout-1].";"));
 
-    $jumDnew=mysqli_fetch_assoc(mysqli_query($connect,"SELECT jumD, IF(jumD<=tot_sks*0.2, 'Terpenuhi', 'Banyak') AS Dbaru FROM Mahasiswa WHERE nim=".$dataarray[$minout-1].";"));
+    $jumD4new=mysqli_fetch_assoc(mysqli_query($connect,"SELECT jumD, IF(jumD<=tot_sks*0.2, 'Terpenuhi', 'Banyak') AS Dbaru FROM Mahasiswa WHERE nim=".$dataarray[$minout-1].";"));
 
-    $jumEnew=mysqli_fetch_assoc(mysqli_query($connect,"SELECT jumE, IF(jumE<'1', 'Terpenuhi', 'Banyak') AS Ebaru FROM Mahasiswa WHERE nim=".$dataarray[$minout-1].";"));
+    $jumE4new=mysqli_fetch_assoc(mysqli_query($connect,"SELECT jumE, IF(jumE<'1', 'Terpenuhi', 'Banyak') AS Ebaru FROM Mahasiswa WHERE nim=".$dataarray[$minout-1].";"));
 
     $status_lulus=mysqli_fetch_assoc(mysqli_query($connect,"SELECT status FROM Mahasiswa WHERE nim=".$dataarray[$minout-1].";"));
     
 
 
     mysqli_query($connect,"INSERT INTO MahasiswaSementara (Nim,Prodi,JurusanAsal,IPS1,IPK,TotalSKS,JumD,JumE,Status_Lulus)
-        VALUES ('".$nimi['nim']."','".$prodinew['prodi']."','".$jurusan_asal['jurusan']."','".$ipsnew['IPS1']."','".$ipknew['IPK']."','".$tot_sksnew['Tot_sks']."','".$jumDnew['Dbaru']."','".$jumEnew['Ebaru']."','".$status_lulus['status']."'); ");
+        VALUES ('".$nimi['nim']."','".$prodinew['prodi']."','".$jurusan_asal['jurusan']."','".$ipsnew['IPS1']."','".$ipknew['IPK']."','".$tot_sksnew['Tot_sks']."','".$jumD4new['Dbaru']."','".$jumE4new['Ebaru']."','".$status_lulus['status']."'); ");
     $loop+=1;
     };
     
+    
+
 
     //Menghitung Probabiltas Data Training
     $queryjur_asalMMT=mysqli_query($connect,"SELECT nim FROM MahasiswaSementara WHERE JurusanAsal IN('Multimedia') AND Status_Lulus IN('Tepat') ORDER BY nim;");
@@ -158,7 +163,7 @@
     $totaltot_jumEBL=mysqli_num_rows($querytot_jumEBL);
 
 
-
+   
     $probabilitasips1TT=$totalips1TT/$totalmahasiswatepat;
     $probabilitasips1TL=$totalips1TL/$totalmahasiswalambat;
     $probabilitasips1KT=$totalips1KT/$totalmahasiswatepat;
@@ -196,6 +201,8 @@
     $probabilitastot_jur_asalLainL=$totaljur_asalLainL/$totalmahasiswalambat;    
 
 
+   
+
 
     //Data Testing
     mysqli_query($connect,"CREATE TEMPORARY TABLE MahasiswaSementaraBL(Nim INT (10)
@@ -224,7 +231,7 @@
 
     $ipkBL=mysqli_fetch_assoc(mysqli_query($connect,"SELECT ipk, IF(ipk>='2', 'Terpenuhi', 'Kurang') As IPK FROM mahasiswa WHERE nim=".$testingarray[$minout-1].";") );
 
-    $tot_sksBL=mysqli_fetch_assoc(mysqli_query($connect,"SELECT tot_sks, IF(tot_sks>=semester*18, 'Terpenuhi','Kurang') As Tot_sks FROM Mahasiswa WHERE nim=".$testingarray[$minout-1].";"));
+    $tot_sksBL=mysqli_fetch_assoc(mysqli_query($connect,"SELECT tot_sks, IF(tot_sks>='82', 'Terpenuhi','Kurang') As Tot_sks FROM Mahasiswa WHERE nim=".$testingarray[$minout-1].";"));
 
     $jumDBL=mysqli_fetch_assoc(mysqli_query($connect,"SELECT jumD, IF(jumD<=tot_sks*0.2, 'Terpenuhi', 'Banyak') AS jumD FROM Mahasiswa WHERE nim=".$testingarray[$minout-1].";"));
 
@@ -239,7 +246,8 @@
     $loop+=1;
     };
 
- 
+    
+
     //Probabilitas Data Testing
     mysqli_query($connect,"CREATE TEMPORARY TABLE MahasiswaPrediksi(Nim INT (10)
         ,JurusanAsalTepat float(7)
@@ -299,7 +307,7 @@
 
     
 
-
+    
 
     //Likelihoad
     mysqli_query($connect,"CREATE TEMPORARY TABLE MahasiswaLikelihoad(Nim INT (10)
@@ -329,7 +337,7 @@
     $loop+=1;
     };
 
-
+    
     //Perklian Likelihoad dengan Prior
     mysqli_query($connect,"CREATE TEMPORARY TABLE MahasiswaLP(Nim INT (10)
         ,LPTepat float(7)
@@ -358,7 +366,7 @@
     $loop+=1;
     };
 
-
+   
     //Menghitung Probabilitas Posterior
     mysqli_query($connect,"CREATE TEMPORARY TABLE MahasiswaPosterior(Nim INT (10)
         ,PosteriorTepat float(7)
@@ -387,6 +395,7 @@
     $loop+=1;
     };
 
+    
 
     //Menentukan Prediksi
     mysqli_query($connect,"CREATE TEMPORARY TABLE Prediksi(Nim INT (10)
@@ -414,13 +423,14 @@
     $loop+=1;
     };
 
+    
 
     //Menampilkan Hasil Prediksi
     mysqli_query($connect,"CREATE TEMPORARY TABLE MahasiswaHasil(Nim INT (10)
         ,Nama varchar(30)
         ,JurusanAsal varchar(10)
         ,Prodi varchar(2)
-        ,Semester INT(2)
+        ,Semester varchar(2)
         ,IPS1 float(10)
         ,IPK float(10)
         ,TotalSKS float(10)
@@ -430,7 +440,7 @@
         ,Prediksi varchar(255));");
 
     $querymahasiswaHasil=mysqli_query($connect,"SELECT nim FROM mahasiswa WHERE status IN('BL') ORDER BY nim;");
-    $totalmahasiswaHasil=mysqli_num_rows($querymahasiswaHasil);
+    $totalmahasiswaHasil=mysqli_num_rows($querymahasiswaBL);
 
     $hasilarray=array();
           while  ($getnimmahasiswaBL=mysqli_fetch_assoc($querymahasiswaHasil)){
@@ -449,25 +459,27 @@
 
     $semesternew=mysqli_fetch_assoc(mysqli_query($connect,"SELECT semester FROM Mahasiswa WHERE nim=".$hasilarray[$minout-1].";"));
 
+
     $ipsnew=mysqli_fetch_assoc(mysqli_query($connect,"SELECT ips1 FROM mahasiswa WHERE nim=".$hasilarray[$minout-1].";") );
 
     $ipknew=mysqli_fetch_assoc(mysqli_query($connect,"SELECT ipk FROM mahasiswa WHERE nim=".$hasilarray[$minout-1].";") );
 
     $tot_sksnew=mysqli_fetch_assoc(mysqli_query($connect,"SELECT tot_sks FROM Mahasiswa WHERE nim=".$hasilarray[$minout-1].";"));
 
-    $jumD4new=mysqli_fetch_assoc(mysqli_query($connect,"SELECT jumD FROM Mahasiswa WHERE nim=".$hasilarray[$minout-1].";"));
+    $jumDnew=mysqli_fetch_assoc(mysqli_query($connect,"SELECT jumD FROM Mahasiswa WHERE nim=".$hasilarray[$minout-1].";"));
 
-    $jumE4new=mysqli_fetch_assoc(mysqli_query($connect,"SELECT jumE FROM Mahasiswa WHERE nim=".$hasilarray[$minout-1].";"));
+    $jumEnew=mysqli_fetch_assoc(mysqli_query($connect,"SELECT jumE FROM Mahasiswa WHERE nim=".$hasilarray[$minout-1].";"));
 
     $status_lulus=mysqli_fetch_assoc(mysqli_query($connect,"SELECT status FROM Mahasiswa WHERE nim=".$hasilarray[$minout-1].";"));
 
     $prediksi=mysqli_fetch_assoc(mysqli_query($connect,"SELECT Prediksi FROM Prediksi WHERE nim=".$hasilarray[$minout-1].";"));
     
 
-    mysqli_query($connect,"INSERT INTO MahasiswaHasil (Nim,Nama,JurusanAsal,Prodi,Semester,IPS1,IPK,TotalSKS,JumD,JumE,Status_Lulus,Prediksi)
-        VALUES ('".$nimi['nim']."','".$nama['nama']."','".$jurusan_asal['jurusan_asalsekolah']."','".$prodinew['prodi']."','".$semesternew['semester']."','".$ipsnew['ips1']."','".$ipknew['ipk']."','".$tot_sksnew['tot_sks']."','".$jumD4new['jumD']."','".$jumE4new['jumE']."','".$status_lulus['status']."','".$prediksi['Prediksi']."'); ");
+
+
+    mysqli_query($connect,"INSERT INTO MahasiswaHasil (Nim, Nama, JurusanAsal,Prodi,IPS1,IPK,TotalSKS,JumD,JumE,Status_Lulus,Prediksi)
+        VALUES ('".$nimi['nim']."','".$nama['nama']."','".$jurusan_asal['jurusan_asalsekolah']."','".$prodinew['prodi']."','".$semesternew['semester']."','".$ipsnew['ips1']."','".$ipknew['ipk']."','".$tot_sksnew['tot_sks']."','".$jumDnew['jumD']."','".$jumEnew['jumE']."','".$status_lulus['status']."','".$prediksi['Prediksi']."'); ");
     $loop+=1;
     };
     
-
-
+?>
