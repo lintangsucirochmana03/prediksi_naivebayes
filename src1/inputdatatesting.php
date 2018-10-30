@@ -57,8 +57,7 @@
 
     <label for="status">Status</label>
     <select id="status" name="semester">
-      <option value="Tepat">Tepat</option>
-      <option value="Lambat">Lambat</option>
+      <option value="Tepat">BL</option>
     </select>
 
 

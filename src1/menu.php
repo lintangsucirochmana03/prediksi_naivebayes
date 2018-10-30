@@ -10,6 +10,7 @@ include_once 'header.php';
       <ul>
         <li><a href="formImport.php"><img src="img/import.png" width="30px" height="35px" />Import File</a></li>
         <li><a href="inputdata.php"><img src="img/import.png" width="30px" height="35px" />Input Data Training</a></li>
+        <li><a href="inputdatatesting.php"><img src="img/import.png" width="30px" height="35px" />Input Data Testing</a></li>
         <li><a href ="datatraining.php"><img src="img/training.png" width="35px" height="40px" />Data Training</a></li>
         <li><a href="datatesting.php"><img src="img/testing.png" width="35px" height="40px" />Data Testing</a></li>
       </ul>
