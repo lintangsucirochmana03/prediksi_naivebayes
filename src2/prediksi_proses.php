@@ -1,6 +1,7 @@
 <?php
 	include ("koneksi.php");
 
+    
 	//menghitung jumlah kelas target
     $querymahasiswatepat=mysqli_query($connect,"SELECT nim FROM mahasiswa WHERE status IN('tepat') ORDER BY nim;");
     $totalmahasiswatepat=mysqli_num_rows($querymahasiswatepat);

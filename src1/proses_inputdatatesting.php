@@ -112,7 +112,7 @@ mysqli_query($connect,"CREATE TEMPORARY TABLE Mahasiswa (Nim INT (10)
 		header("location:inputdata.php");
 	}
 
-	include_once 'prediksi_proses.php';
+	
 ?>
 
 	

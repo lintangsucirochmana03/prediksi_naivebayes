@@ -8,7 +8,7 @@
    <?php 
     //Menampilkan Tabel Hasil Prediksi
     echo "<div class='container'>
-    <center><h3>Tabel Data Training </h3></center>
+    <center><h3>Tabel Data Testing </h3></center>
      <table id='tbl-import'>
     <thead class='thead-light'>
       <tr>
@@ -19,12 +19,12 @@
         <th>PRODI</th>
         <th>Tahun Masuk</th>
         <th>Semester</th>
-        <th>IPS 1</th>
-        <th>IPK</th>
-        <th>TotalSKS</th>
-        <th>JumD</th>
-        <th>JumE</th>
-        <th>Status lulus</th>
+        <th>IPS1</th>
+        <th>IPK </th>
+        <th>Total SKS</th>
+        <th>JumD </th>
+        <th>JumE </th>
+        <th>Status Lulus</th>
         <th>Aksi</th>
       </tr>
     </thead>
@@ -36,10 +36,10 @@
   $halaman = 10;
   $page = isset($_GET["halaman"]) ? (int)$_GET["halaman"] : 1;
   $mulai = ($page>1) ? ($page * $halaman) - $halaman : 0;
-  $result = mysqli_query($connect,"SELECT * FROM Mahasiswa WHERE status IN('lambat', 'tepat')");
+  $result = mysqli_query($connect,"SELECT * FROM Mahasiswa WHERE status IN('BL')");
   $total = mysqli_num_rows($result);
   $pages = ceil($total/$halaman);            
-  $tampil = mysqli_query($connect,"select * from Mahasiswa WHERE status IN('lambat', 'tepat') LIMIT $mulai, $halaman")or die(mysql_error);
+  $tampil = mysqli_query($connect,"select * from Mahasiswa WHERE status IN('BL') LIMIT $mulai, $halaman")or die(mysql_error);
   $no =$mulai+1;
 
 
@@ -59,15 +59,16 @@
     echo "<td>".$tampilkan['jumD']."</td>";
     echo "<td>".$tampilkan['jumE']."</td>";
     echo "<td>" . $tampilkan['status']. "</td>";
-    ?>
-   <td>
-    <div align="center"><a href="detail.php?Nim=<?php echo $tampilkan['Nim']; ?>"> Update </a></div>
-    <div align="center"><a href="detail.php?Nim=<?php echo $tampilkan['Nim']; ?>"> Delete </a></div>
+     ?>
 
-   </td>  
+   <td>
+    <div align="center"><a href="update_testing.php?nim=<?php echo $tampilkan['nim']; ?>"> Update </a></div>
+    <div align="center"><a href="delete.php?nim=<?php echo $tampilkan['nim']; ?>"> Delete </a></div>
+
+   </td> 
+
    <?php 
         echo "</tr>";
-
         
     };
 

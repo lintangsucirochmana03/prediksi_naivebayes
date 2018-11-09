@@ -1,6 +1,91 @@
 <?php
 	include ("koneksi.php");
 
+
+    $nim = $_POST["nim"];
+    $nama = $_POST["nama"];
+    $th_masuk = $_POST["th_masuk"];
+    $semester = $_POST["semester"];
+    $jurusan_asalsekolah = $_POST["jurusan_asalsekolah"];
+    $ips1 = $_POST["ips1"];
+    $ipk = $_POST["ipk"];
+    $tot_sks = $_POST["tot_sks"];
+    $jumD = $_POST["jumD"];
+    $jumE = $_POST["jumE"];
+    $status = $_POST["status"];
+
+    mysqli_query($connect,"CREATE TEMPORARY TABLE MahasiswaTesting (Nim INT (10)
+        ,nama varchar(30)
+        ,th_masuk int(5)
+        ,semester int(1)
+        ,jurusan_asalsekolah varchar(10)
+        ,ips1 float(5)
+        ,ipk float(5)
+        ,tot_sks int(3)
+        ,jumD int(3)
+        ,jumE int(3)
+        ,Status varchar(2));");
+
+    $query = "INSERT INTO MahasiswaTesting SET
+                nim = '$nim',
+                nama = '$nama',
+                th_masuk= '$th_masuk',
+                semester='$semester',
+                jurusan_asalsekolah= '$jurusan_asalsekolah',
+                ips1 = '$ips1',
+                ipk = '$ipk',
+                tot_sks = '$tot_sks',
+                jumD = '$jumD',
+                jumE = '$jumE',
+                status = '$status'
+                ";
+
+    //Menampilkan Tabel Mahasiswa Sementara
+    echo "<div class='container'>
+    <center><h3 class='page-header'>Tampilan Tabel Mahasiswa Sementara </h3></center>
+     <table class='table table-striped table-bordered'>
+    <thead class='thead-light'>
+      <tr>
+        <th>NIM</th>
+        <th>JurusanAsal</th>
+        <th>PRODI</th>
+        <th>Semester</th>
+        <th>IPS1</th>
+        <th>IPK</th>
+        <th>TotalSKS</th>
+        <th>JumD</th>
+        <th>JumE</th>
+        <th>STATUS</th>
+      </tr>
+    </thead>
+    <tbody>
+    <tr>
+    ";
+
+    $tampilpertama=mysqli_query($connect,"SELECT nim,nama,th_masuk,semester,jurusan_asalsekolah,ips1,ipk,tot_sks,jumD,jumE,status FROM MahasiswaTesting;") or die(mysqli_errno($connect));
+    while($tampilkan=mysqli_fetch_assoc($tampilpertama)){
+    echo "<tr>";
+    echo "<td>".$tampilkan['nim']."</td>";
+    echo "<td>".$tampilkan['nama']."</td>";
+    echo "<td>".$tampilkan['th_masuk']."</td>";
+    echo "<td>".$tampilkan['semester']."</td>";
+    echo "<td>".$tampilkan['jurusan_asalsekolah']."</td>";
+    echo "<td>".$tampilkan['ips1']."</td>";
+    echo "<td>".$tampilkan['ipk']."</td>";
+    echo "<td>".$tampilkan['tot_sks']."</td>";
+    echo "<td>".$tampilkan['jumD']."</td>";
+    echo "<td>".$tampilkan['jumE']."</td>";
+    echo "<td>" . $tampilkan['status']. "</td>";
+        echo "</tr>";
+        
+    };
+
+    echo " </tbody></table>
+    </div>";
+
+    echo "<br/>";
+
+?>
 	//menghitung jumlah kelas target
     $querymahasiswatepat=mysqli_query($connect,"SELECT nim FROM mahasiswa WHERE status IN('tepat') ORDER BY nim;");
     $totalmahasiswatepat=mysqli_num_rows($querymahasiswatepat);
@@ -206,7 +291,7 @@
         ,JumDBL varchar(10)
         ,JumEBL varchar(10)
         ,Status_Lulus varchar(255));");
-    $querymahasiswaBL=mysqli_query($connect,"SELECT nim FROM mahasiswa WHERE status IN('BL') ORDER BY nim;");
+    $querymahasiswaBL=mysqli_query($connect,"SELECT nim FROM MahasiswaTesting WHERE status IN('BL') ORDER BY nim;");
     $totalmahasiswaBL=mysqli_num_rows($querymahasiswaBL);
 
     $testingarray=array();
@@ -216,22 +301,22 @@
     $loop=1;
 
     for ($minout=1;$minout<=$totalmahasiswaBL;$minout++){
-    $nimBL=mysqli_fetch_assoc(mysqli_query($connect,"SELECT nim FROM Mahasiswa WHERE nim=".$testingarray[$minout-1].";"));
+    $nimBL=mysqli_fetch_assoc(mysqli_query($connect,"SELECT nim FROM MahasiswaTesting WHERE nim=".$testingarray[$minout-1].";"));
 
-    $jur_asalBL=mysqli_fetch_assoc(mysqli_query($connect,"SELECT jurusan_asalsekolah, IF(jurusan_asalsekolah='Multimedia', 'Multimedia', IF(jurusan_asalsekolah='TKJ', 'TKJ', IF(jurusan_asalsekolah='IPA', 'IPA', IF(jurusan_asalsekolah='IPS', 'IPS', 'Lain')))) As Jurusan FROM mahasiswa WHERE nim=".$testingarray[$minout-1].";") );
+    $jur_asalBL=mysqli_fetch_assoc(mysqli_query($connect,"SELECT jurusan_asalsekolah, IF(jurusan_asalsekolah='Multimedia', 'Multimedia', IF(jurusan_asalsekolah='TKJ', 'TKJ', IF(jurusan_asalsekolah='IPA', 'IPA', IF(jurusan_asalsekolah='IPS', 'IPS', 'Lain')))) As Jurusan FROM MahasiswaTesting WHERE nim=".$testingarray[$minout-1].";") );
 
-    $ipsBL=mysqli_fetch_assoc(mysqli_query($connect,"SELECT ips1, IF(ips1>='2', 'Terpenuhi', 'Kurang') As IPS1 FROM mahasiswa WHERE nim=".$testingarray[$minout-1].";") );
+    $ipsBL=mysqli_fetch_assoc(mysqli_query($connect,"SELECT ips1, IF(ips1>='2', 'Terpenuhi', 'Kurang') As IPS1 FROM MahasiswaTesting WHERE nim=".$testingarray[$minout-1].";") );
 
-    $ipkBL=mysqli_fetch_assoc(mysqli_query($connect,"SELECT ipk, IF(ipk>='2', 'Terpenuhi', 'Kurang') As IPK FROM mahasiswa WHERE nim=".$testingarray[$minout-1].";") );
+    $ipkBL=mysqli_fetch_assoc(mysqli_query($connect,"SELECT ipk, IF(ipk>='2', 'Terpenuhi', 'Kurang') As IPK FROM MahasiswaTesting WHERE nim=".$testingarray[$minout-1].";") );
 
-    $tot_sksBL=mysqli_fetch_assoc(mysqli_query($connect,"SELECT tot_sks, IF(tot_sks>=semester*18, 'Terpenuhi','Kurang') As Tot_sks FROM Mahasiswa WHERE nim=".$testingarray[$minout-1].";"));
+    $tot_sksBL=mysqli_fetch_assoc(mysqli_query($connect,"SELECT tot_sks, IF(tot_sks>=semester*18, 'Terpenuhi','Kurang') As Tot_sks FROM MahasiswaTesting WHERE nim=".$testingarray[$minout-1].";"));
 
-    $jumDBL=mysqli_fetch_assoc(mysqli_query($connect,"SELECT jumD, IF(jumD<=tot_sks*0.2, 'Terpenuhi', 'Banyak') AS jumD FROM Mahasiswa WHERE nim=".$testingarray[$minout-1].";"));
+    $jumDBL=mysqli_fetch_assoc(mysqli_query($connect,"SELECT jumD, IF(jumD<=tot_sks*0.2, 'Terpenuhi', 'Banyak') AS jumD FROM MahasiswaTesting WHERE nim=".$testingarray[$minout-1].";"));
 
-    $jumEBL=mysqli_fetch_assoc(mysqli_query($connect,"SELECT jumE, IF(jumE<'1', 'Terpenuhi', 'Banyak') AS jumE FROM Mahasiswa WHERE nim=".$testingarray[$minout-1].";"));
+    $jumEBL=mysqli_fetch_assoc(mysqli_query($connect,"SELECT jumE, IF(jumE<'1', 'Terpenuhi', 'Banyak') AS jumE FROM MahasiswaTesting WHERE nim=".$testingarray[$minout-1].";"));
 
     
-    $status_lulusBL=mysqli_fetch_assoc(mysqli_query($connect,"SELECT status FROM Mahasiswa WHERE nim=".$testingarray[$minout-1].";"));
+    $status_lulusBL=mysqli_fetch_assoc(mysqli_query($connect,"SELECT status FROM MahasiswaTesting WHERE nim=".$testingarray[$minout-1].";"));
     
 
     mysqli_query($connect,"INSERT INTO MahasiswaSementaraBL (Nim, JurusanAsalBL ,IPS1BL, IPKBL, TotalSKSBL, JumDBL, JumEBL, Status_Lulus)
@@ -256,7 +341,7 @@
         ,JumEL float(7)
         ,Status_Lulus varchar(255));");
 
-    $querymahasiswaBL=mysqli_query($connect,"SELECT nim FROM mahasiswa WHERE status IN('BL') ORDER BY nim;");
+    $querymahasiswaBL=mysqli_query($connect,"SELECT nim FROM MahasiswaTesting WHERE status IN('BL') ORDER BY nim;");
     $totalmahasiswaBL=mysqli_num_rows($querymahasiswaBL);
 
     $prediksiarray=array();
@@ -266,7 +351,7 @@
     $loop=1;
 
     for ($minout=1;$minout<=$totalmahasiswaBL;$minout++){
-    $nimprediski=mysqli_fetch_assoc(mysqli_query($connect,"SELECT nim FROM Mahasiswa WHERE nim=".$prediksiarray[$minout-1].";"));
+    $nimprediski=mysqli_fetch_assoc(mysqli_query($connect,"SELECT nim FROM MahasiswaTesting WHERE nim=".$prediksiarray[$minout-1].";"));
 
 
     $jur_asalTepat=mysqli_fetch_assoc(mysqli_query($connect,"SELECT JurusanAsalBL, IF(JurusanAsalBL='Multimedia', $probabilitastot_jur_asalMMT, IF(JurusanAsalBL='TKJ', $probabilitastot_jur_asalTKJT, IF(JurusanAsalBL='IPA', $probabilitastot_jur_asalIPAT, IF(JurusanAsalBL='IPS', $probabilitastot_jur_asalIPST, $probabilitastot_jur_asalLainT))))  As JurusanAsalT FROM MahasiswaSementaraBL WHERE nim=".$prediksiarray[$minout-1].";") );
@@ -307,7 +392,7 @@
         ,LikelihoadLambat float(7)
         ,Status_Lulus varchar(255));");
 
-    $querymahasiswaBL=mysqli_query($connect,"SELECT nim FROM mahasiswa WHERE status IN('BL') ORDER BY nim;");
+    $querymahasiswaBL=mysqli_query($connect,"SELECT nim FROM MahasiswaTesting WHERE status IN('BL') ORDER BY nim;");
     $totalmahasiswaBL=mysqli_num_rows($querymahasiswaBL);
 
     $likelihoadarray=array();
@@ -317,7 +402,7 @@
     $loop=1;
 
     for ($minout=1;$minout<=$totalmahasiswaBL;$minout++){
-    $nimprediski=mysqli_fetch_assoc(mysqli_query($connect,"SELECT nim FROM Mahasiswa WHERE nim=".$likelihoadarray[$minout-1].";"));
+    $nimprediski=mysqli_fetch_assoc(mysqli_query($connect,"SELECT nim FROM MahasiswaTesting WHERE nim=".$likelihoadarray[$minout-1].";"));
 
     $likelihoadTepat=mysqli_fetch_assoc(mysqli_query($connect,"SELECT JurusanAsalTepat*IPS1Tepat*IPKT*TotalSKST*JumDT*JumET As likelihoadT FROM MahasiswaPrediksi WHERE nim=".$likelihoadarray[$minout-1].";") );
     $likelihoadLambat=mysqli_fetch_assoc(mysqli_query($connect,"SELECT JurusanAsalLambat*IPS1Lambat*IPKL*TotalSKSL*JumDL*JumEL As likelihoadL FROM MahasiswaPrediksi WHERE nim=".$likelihoadarray[$minout-1].";") );
@@ -336,7 +421,7 @@
         ,LPLambat float(7)
         ,Status_Lulus varchar(255));");
 
-    $querymahasiswaBL=mysqli_query($connect,"SELECT nim FROM mahasiswa WHERE status IN('BL') ORDER BY nim;");
+    $querymahasiswaBL=mysqli_query($connect,"SELECT nim FROM MahasiswaTesting WHERE status IN('BL') ORDER BY nim;");
     $totalmahasiswaBL=mysqli_num_rows($querymahasiswaBL);
 
     $likelihoadarray=array();
@@ -346,12 +431,12 @@
     $loop=1;
 
     for ($minout=1;$minout<=$totalmahasiswaBL;$minout++){
-    $nimprediski=mysqli_fetch_assoc(mysqli_query($connect,"SELECT nim FROM Mahasiswa WHERE nim=".$likelihoadarray[$minout-1].";"));
+    $nimprediski=mysqli_fetch_assoc(mysqli_query($connect,"SELECT nim FROM MahasiswaTesting WHERE nim=".$likelihoadarray[$minout-1].";"));
 
     $LPTepat=mysqli_fetch_assoc(mysqli_query($connect,"SELECT LikelihoadTepat * $prior_tepat As LPT FROM MahasiswaLikelihoad WHERE nim=".$likelihoadarray[$minout-1].";") );
     $LPLambat=mysqli_fetch_assoc(mysqli_query($connect,"SELECT LikelihoadLambat * $prior_lambat As LPL FROM MahasiswaLikelihoad WHERE nim=".$likelihoadarray[$minout-1].";") );
 
-    $status_lulusprediksi=mysqli_fetch_assoc(mysqli_query($connect,"SELECT status FROM Mahasiswa WHERE nim=".$testingarray[$minout-1].";"));
+    $status_lulusprediksi=mysqli_fetch_assoc(mysqli_query($connect,"SELECT status FROM MahasiswaTesting WHERE nim=".$testingarray[$minout-1].";"));
 
     mysqli_query($connect,"INSERT INTO MahasiswaLP (Nim, LPTepat, LPLambat, Status_Lulus)
         VALUES ('".$nimprediski['nim']."','".$LPTepat['LPT']."','".$LPLambat['LPL']."','".$status_lulusprediksi['status']."'); ");
@@ -365,7 +450,7 @@
         ,PosteriorLambat float(7)
         ,Status_Lulus varchar(255));");
 
-    $querymahasiswaBL=mysqli_query($connect,"SELECT nim FROM mahasiswa WHERE status IN('BL') ORDER BY nim;");
+    $querymahasiswaBL=mysqli_query($connect,"SELECT nim FROM MahasiswaTesting WHERE status IN('BL') ORDER BY nim;");
     $totalmahasiswaBL=mysqli_num_rows($querymahasiswaBL);
 
     $posteriorarray=array();
@@ -375,12 +460,12 @@
     $loop=1;
 
     for ($minout=1;$minout<=$totalmahasiswaBL;$minout++){
-    $nimprediski=mysqli_fetch_assoc(mysqli_query($connect,"SELECT nim FROM Mahasiswa WHERE nim=".$posteriorarray[$minout-1].";"));
+    $nimprediski=mysqli_fetch_assoc(mysqli_query($connect,"SELECT nim FROM MahasiswaTesting WHERE nim=".$posteriorarray[$minout-1].";"));
 
     $PosteriorTepat=mysqli_fetch_assoc(mysqli_query($connect,"SELECT LPTepat / (LPTepat+LPLambat) As PosteriorT FROM MahasiswaLP WHERE nim=".$likelihoadarray[$minout-1].";") );
     $PosteriorLambat=mysqli_fetch_assoc(mysqli_query($connect,"SELECT LPLambat / (LPTepat+LPLambat) As PosteriorL FROM MahasiswaLP WHERE nim=".$likelihoadarray[$minout-1].";") );
 
-    $status_lulusprediksi=mysqli_fetch_assoc(mysqli_query($connect,"SELECT status FROM Mahasiswa WHERE nim=".$testingarray[$minout-1].";"));
+    $status_lulusprediksi=mysqli_fetch_assoc(mysqli_query($connect,"SELECT status FROM MahasiswaTesting WHERE nim=".$testingarray[$minout-1].";"));
 
     mysqli_query($connect,"INSERT INTO MahasiswaPosterior (Nim, PosteriorTepat, PosteriorLambat, Status_Lulus)
         VALUES ('".$nimprediski['nim']."','".$PosteriorTepat['PosteriorT']."','".$PosteriorLambat['PosteriorL']."','".$status_lulusprediksi['status']."'); ");
@@ -393,7 +478,7 @@
         ,Prediksi varchar(7)
         ,Status_Lulus varchar(255));");
 
-    $querymahasiswaBL=mysqli_query($connect,"SELECT nim FROM mahasiswa WHERE status IN('BL') ORDER BY nim;");
+    $querymahasiswaBL=mysqli_query($connect,"SELECT nim FROM MahasiswaTesting WHERE status IN('BL') ORDER BY nim;");
     $totalmahasiswaBL=mysqli_num_rows($querymahasiswaBL);
 
     $prediksirarray=array();
@@ -403,11 +488,11 @@
     $loop=1;
 
     for ($minout=1;$minout<=$totalmahasiswaBL;$minout++){
-    $nimprediski=mysqli_fetch_assoc(mysqli_query($connect,"SELECT nim FROM Mahasiswa WHERE nim=".$prediksirarray[$minout-1].";"));
+    $nimprediski=mysqli_fetch_assoc(mysqli_query($connect,"SELECT nim FROM MahasiswaTesting WHERE nim=".$prediksirarray[$minout-1].";"));
 
     $Prediksi=mysqli_fetch_assoc(mysqli_query($connect,"SELECT PosteriorTepat, PosteriorLambat, IF(PosteriorTepat>PosteriorLambat, 'Tepat', 'Lambat') As Prediksi FROM MahasiswaPosterior WHERE nim=".$prediksirarray[$minout-1].";") );
 
-    $status_lulusprediksi=mysqli_fetch_assoc(mysqli_query($connect,"SELECT status FROM Mahasiswa WHERE nim=".$prediksirarray[$minout-1].";"));
+    $status_lulusprediksi=mysqli_fetch_assoc(mysqli_query($connect,"SELECT status FROM MahasiswaTesting WHERE nim=".$prediksirarray[$minout-1].";"));
 
     mysqli_query($connect,"INSERT INTO Prediksi (Nim, Prediksi, Status_Lulus)
         VALUES ('".$nimprediski['nim']."','".$Prediksi['Prediksi']."','".$status_lulusprediksi['status']."'); ");
@@ -429,7 +514,7 @@
         ,Status_Lulus varchar(255)
         ,Prediksi varchar(255));");
 
-    $querymahasiswaHasil=mysqli_query($connect,"SELECT nim FROM mahasiswa WHERE status IN('BL') ORDER BY nim;");
+    $querymahasiswaHasil=mysqli_query($connect,"SELECT nim FROM MahasiswaTesting WHERE status IN('BL') ORDER BY nim;");
     $totalmahasiswaHasil=mysqli_num_rows($querymahasiswaHasil);
 
     $hasilarray=array();
@@ -439,27 +524,27 @@
     $loop=1;
 
     for ($minout=1;$minout<=$totalmahasiswaHasil;$minout++){
-    $nimi=mysqli_fetch_assoc(mysqli_query($connect,"SELECT nim FROM Mahasiswa WHERE nim=".$hasilarray[$minout-1].";"));
+    $nimi=mysqli_fetch_assoc(mysqli_query($connect,"SELECT nim FROM MahasiswaTesting WHERE nim=".$hasilarray[$minout-1].";"));
 
-    $nama=mysqli_fetch_assoc(mysqli_query($connect,"SELECT nama FROM Mahasiswa WHERE nim=".$hasilarray[$minout-1].";"));
+    $nama=mysqli_fetch_assoc(mysqli_query($connect,"SELECT nama FROM MahasiswaTesting WHERE nim=".$hasilarray[$minout-1].";"));
     
-    $jurusan_asal=mysqli_fetch_assoc(mysqli_query($connect,"SELECT jurusan_asalsekolah FROM mahasiswa WHERE nim=".$hasilarray[$minout-1].";") );
+    $jurusan_asal=mysqli_fetch_assoc(mysqli_query($connect,"SELECT jurusan_asalsekolah FROM MahasiswaTesting WHERE nim=".$hasilarray[$minout-1].";") );
 
-    $prodinew=mysqli_fetch_assoc(mysqli_query($connect,"SELECT prodi FROM Mahasiswa WHERE nim=".$hasilarray[$minout-1].";"));
+    $prodinew=mysqli_fetch_assoc(mysqli_query($connect,"SELECT prodi FROM MahasiswaTesting WHERE nim=".$hasilarray[$minout-1].";"));
 
-    $semesternew=mysqli_fetch_assoc(mysqli_query($connect,"SELECT semester FROM Mahasiswa WHERE nim=".$hasilarray[$minout-1].";"));
+    $semesternew=mysqli_fetch_assoc(mysqli_query($connect,"SELECT semester FROM MahasiswaTesting WHERE nim=".$hasilarray[$minout-1].";"));
 
-    $ipsnew=mysqli_fetch_assoc(mysqli_query($connect,"SELECT ips1 FROM mahasiswa WHERE nim=".$hasilarray[$minout-1].";") );
+    $ipsnew=mysqli_fetch_assoc(mysqli_query($connect,"SELECT ips1 FROM MahasiswaTesting WHERE nim=".$hasilarray[$minout-1].";") );
 
-    $ipknew=mysqli_fetch_assoc(mysqli_query($connect,"SELECT ipk FROM mahasiswa WHERE nim=".$hasilarray[$minout-1].";") );
+    $ipknew=mysqli_fetch_assoc(mysqli_query($connect,"SELECT ipk FROM MahasiswaTesting WHERE nim=".$hasilarray[$minout-1].";") );
 
-    $tot_sksnew=mysqli_fetch_assoc(mysqli_query($connect,"SELECT tot_sks FROM Mahasiswa WHERE nim=".$hasilarray[$minout-1].";"));
+    $tot_sksnew=mysqli_fetch_assoc(mysqli_query($connect,"SELECT tot_sks FROM MahasiswaTesting WHERE nim=".$hasilarray[$minout-1].";"));
 
-    $jumD4new=mysqli_fetch_assoc(mysqli_query($connect,"SELECT jumD FROM Mahasiswa WHERE nim=".$hasilarray[$minout-1].";"));
+    $jumD4new=mysqli_fetch_assoc(mysqli_query($connect,"SELECT jumD FROM MahasiswaTesting WHERE nim=".$hasilarray[$minout-1].";"));
 
-    $jumE4new=mysqli_fetch_assoc(mysqli_query($connect,"SELECT jumE FROM Mahasiswa WHERE nim=".$hasilarray[$minout-1].";"));
+    $jumE4new=mysqli_fetch_assoc(mysqli_query($connect,"SELECT jumE FROM MahasiswaTesting WHERE nim=".$hasilarray[$minout-1].";"));
 
-    $status_lulus=mysqli_fetch_assoc(mysqli_query($connect,"SELECT status FROM Mahasiswa WHERE nim=".$hasilarray[$minout-1].";"));
+    $status_lulus=mysqli_fetch_assoc(mysqli_query($connect,"SELECT status FROM MahasiswaTesting WHERE nim=".$hasilarray[$minout-1].";"));
 
     $prediksi=mysqli_fetch_assoc(mysqli_query($connect,"SELECT Prediksi FROM Prediksi WHERE nim=".$hasilarray[$minout-1].";"));
     
@@ -471,3 +556,50 @@
     
 
 
+    //Menampilkan Tabel Mahasiswa Sementara
+    echo "<div class='container'>
+    <center><h3 class='page-header'>Tampilan Tabel Mahasiswa Sementara </h3></center>
+     <table class='table table-striped table-bordered'>
+    <thead class='thead-light'>
+      <tr>
+        <th>NIM</th>
+        <th>JurusanAsal</th>
+        <th>PRODI</th>
+        <th>Semester</th>
+        <th>IPS1</th>
+        <th>IPK</th>
+        <th>TotalSKS</th>
+        <th>JumD</th>
+        <th>JumE</th>
+        <th>STATUS</th>
+        <th>Prediksi</th>
+      </tr>
+    </thead>
+    <tbody>
+    <tr>
+    ";
+
+    $tampil=mysqli_query($connect,"SELECT Nim,JurusanAsal,Prodi,Semester,IPS1,IPK,TotalSKS,JumD,JumE,Status_Lulus,Prediksi FROM MahasiswaHasil;") or die(mysqli_errno($connect));
+    while($tampilkan=mysqli_fetch_assoc($tampil)){
+    echo "<tr>";
+    echo "<td>".$tampilkan['Nim']."</td>";
+    echo "<td>".$tampilkan['JurusanAsal']."</td>";
+    echo "<td>".$tampilkan['Prodi']."</td>";
+    echo "<td>".$tampilkan['Semester']."</td>";
+    echo "<td>".$tampilkan['IPS1']."</td>";
+    echo "<td>".$tampilkan['IPK']."</td>";
+    echo "<td>".$tampilkan['TotalSKS']."</td>";
+    echo "<td>".$tampilkan['JumD']."</td>";
+    echo "<td>".$tampilkan['JumE']."</td>";
+    echo "<td>" . $tampilkan['Status_Lulus']. "</td>";
+    echo "<td>" . $tampilkan['Prediksi']. "</td>";
+        echo "</tr>";
+        
+    };
+
+    echo " </tbody></table>
+    </div>";
+
+    echo "<br/>";
+
+?>

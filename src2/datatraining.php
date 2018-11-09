@@ -39,7 +39,7 @@
   $result = mysqli_query($connect,"SELECT * FROM Mahasiswa WHERE status IN('lambat', 'tepat')");
   $total = mysqli_num_rows($result);
   $pages = ceil($total/$halaman);            
-  $tampil = mysqli_query($connect,"select * from Mahasiswa WHERE status IN('lambat', 'tepat') LIMIT $mulai, $halaman")or die(mysql_error);
+  $tampil = mysqli_query($connect,"select * from Mahasiswa WHERE status IN('lambat', 'tepat') Order By nim LIMIT $mulai, $halaman")or die(mysql_error);
   $no =$mulai+1;
 
 
@@ -61,8 +61,8 @@
     echo "<td>" . $tampilkan['status']. "</td>";
     ?>
    <td>
-    <div align="center"><a href="detail.php?Nim=<?php echo $tampilkan['Nim']; ?>"> Update </a></div>
-    <div align="center"><a href="detail.php?Nim=<?php echo $tampilkan['Nim']; ?>"> Delete </a></div>
+    <div align="center"><a href="update_training.php?nim=<?php echo $tampilkan['nim']; ?>"> Update </a></div>
+    <div align="center"><a href="delete.php?nim=<?php echo $tampilkan['nim']; ?>"> Delete </a></div>
 
    </td>  
    <?php 

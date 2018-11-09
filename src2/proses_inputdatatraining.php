@@ -96,15 +96,12 @@
 				";
 	$result = mysqli_query($connect, $query);
 	if(!$result){
-		header("location:inputdata.php?msg=Gagal menambah data");
-		echo mysqli_error($connect);
-		
-	}else {
-		header("location:inputdata.php");
+		die("Gagal menambah data.<br/>");
 	}
-	
-	
+
+	header("location:inputdata.php");
 ?>
+
 	
 
 

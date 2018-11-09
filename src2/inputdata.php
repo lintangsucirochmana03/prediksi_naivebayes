@@ -13,7 +13,7 @@
 
 ?>
 <div id="konten" >
- <form id="inputtraining" action="session.php" method="post">
+ <form id="inputtraining" action="proses_inputdatatraining.php" method="post">
     <label for="nim">Nim</label>
     <input type="text" id="nim" name="nim" placeholder="Nim">
 
@@ -37,6 +37,17 @@
       <option value="IPS">IPS</option>
       <option value="Multimedia">Multimedia</option>
       <option value="TKJ">TKJ</option>
+      <option value="Pemasaran">Teknik Otomotif</option>
+      <option value="Pemasaran">Teknik Mesin</option>
+      <option value="Pemasaran">Teknik Elektro</option>
+      <option value="Pemasaran">Teknik Listrik</option>
+      <option value="Pemasaran">Teknik Gambar bangunan</option>
+      <option value="Pemasaran">Akuntansi</option>
+      <option value="Pemasaran">Administrasi Perkantoran</option>
+      <option value="Pemasaran">Pariwisata</option>
+      <option value="Perhotelan">Perhotelan</option>
+      <option value="Pemasaran">Pemasaran</option>
+      <option value="Pemasaran">Tata Boga</option>
       <option value="Lain">Lain</option>
     </select>
 
@@ -57,6 +68,8 @@
 
     <label for="status">Status</label>
     <select id="status" name="status">
+      <option value="Tepat">Tepat</option>
+      <option value="Lambat">Lambat</option>
       <option value="BL">BL</option>
     </select>
 

@@ -1,5 +1,5 @@
 <?php
-	include ("koneksi.php");
+  include ("koneksi.php");
     include_once 'header.php';
     include_once 'menu.php';
     include 'prediksi_proses.php'
@@ -8,23 +8,22 @@
    <?php 
     //Menampilkan Tabel Hasil Prediksi
     echo "<div class='container'>
-    <center><h3>Tabel Data Training </h3></center>
+    <center><h3>Tabel Hasil Prediksi Mahasiswa Lulus Lambat </h3></center>
      <table id='tbl-import'>
     <thead class='thead-light'>
       <tr>
       <th>No</th>
         <th>NIM</th>
         <th>Nama</th>
-        <th>JurusanAsal</th>
+        <th>Jurusan Asal Sekolah</th>
         <th>PRODI</th>
-        <th>Tahun Masuk</th>
-        <th>Semester</th>
-        <th>IPS 1</th>
+        <th>IPS1</th>
         <th>IPK</th>
         <th>TotalSKS</th>
         <th>JumD</th>
         <th>JumE</th>
-        <th>Status lulus</th>
+        <th>Status</th>
+        <th>Prediksi</th>
         <th>Aksi</th>
       </tr>
     </thead>
@@ -36,10 +35,10 @@
   $halaman = 10;
   $page = isset($_GET["halaman"]) ? (int)$_GET["halaman"] : 1;
   $mulai = ($page>1) ? ($page * $halaman) - $halaman : 0;
-  $result = mysqli_query($connect,"SELECT * FROM Mahasiswa WHERE status IN('lambat', 'tepat')");
+  $result = mysqli_query($connect,"SELECT * FROM MahasiswaHasil WHERE Prediksi IN('Lambat')");
   $total = mysqli_num_rows($result);
   $pages = ceil($total/$halaman);            
-  $tampil = mysqli_query($connect,"select * from Mahasiswa WHERE status IN('lambat', 'tepat') LIMIT $mulai, $halaman")or die(mysql_error);
+  $tampil = mysqli_query($connect,"select * from MahasiswaHasil WHERE Prediksi IN('Lambat') LIMIT $mulai, $halaman")or die(mysql_error);
   $no =$mulai+1;
 
 
@@ -47,27 +46,22 @@
     while($tampilkan=mysqli_fetch_assoc($tampil)){
     echo "<tr>";
     echo " <td>". $no++. "</td>";
-    echo "<td>".$tampilkan['nim']."</td>";
-    echo "<td>".$tampilkan['nama']."</td>";
-    echo "<td>".$tampilkan['jurusan_asalsekolah']."</td>";
-    echo "<td>".$tampilkan['prodi']."</td>";
-    echo "<td>".$tampilkan['th_masuk']."</td>";
-    echo "<td>".$tampilkan['semester']."</td>";
-    echo "<td>".$tampilkan['ips1']."</td>";
-    echo "<td>".$tampilkan['ipk']."</td>";
-    echo "<td>".$tampilkan['tot_sks']."</td>";
-    echo "<td>".$tampilkan['jumD']."</td>";
-    echo "<td>".$tampilkan['jumE']."</td>";
-    echo "<td>" . $tampilkan['status']. "</td>";
+    echo "<td>".$tampilkan['Nim']."</td>";
+    echo "<td>".$tampilkan['Nama']."</td>";
+    echo "<td>".$tampilkan['JurusanAsal']."</td>";
+    echo "<td>".$tampilkan['Prodi']."</td>";
+    echo "<td>".$tampilkan['IPS1']."</td>";
+    echo "<td>".$tampilkan['IPK']."</td>";
+    echo "<td>".$tampilkan['TotalSKS']."</td>";
+    echo "<td>".$tampilkan['JumD']."</td>";
+    echo "<td>".$tampilkan['JumE']."</td>";
+    echo "<td>" . $tampilkan['Status_Lulus']. "</td>";
+    echo "<td>" . $tampilkan['Prediksi']. "</td>";
     ?>
-   <td>
-    <div align="center"><a href="detail.php?Nim=<?php echo $tampilkan['Nim']; ?>"> Update </a></div>
-    <div align="center"><a href="detail.php?Nim=<?php echo $tampilkan['Nim']; ?>"> Delete </a></div>
-
-   </td>  
+      <td><div align="center"><a href="detail.php?Nim=<?php echo $tampilkan['Nim']; ?>"> Detail </a></div></td>  
    <?php 
-        echo "</tr>";
 
+    echo "</tr>";
         
     };
 
