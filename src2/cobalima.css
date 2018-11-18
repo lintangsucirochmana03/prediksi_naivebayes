@@ -16,7 +16,7 @@
 #kiri {
 	position: relative;
 	width: 20%;
-	height: 800px;
+	height: 880px;
 	background-color: #333;
 	float: left;
 	color: white;
@@ -26,7 +26,7 @@
 #konten {
 	float: right;
 	width: 80%;
-	height: 720px;
+	height: 800px;
 	background-color: #F0F8FF;
 }
 
@@ -36,7 +36,7 @@
 	font-family: Times New Roman;
 }
 #bagiansatu{
-	margin-top: 20px;
+	margin-top: 0px;
 }
 #bagiansatu p {
 	font-family: Times New Roman;
@@ -50,7 +50,7 @@
 }
 
 #bagiandua {
-    margin-top: 20px;
+    margin-top: 0px;
 
 }
 
@@ -64,7 +64,20 @@
     text-align: center;
 }
 
+#bagiantiga {
+    margin-top: 0px;
 
+}
+
+#bagiantiga p{
+    font-family: Times New Roman;
+    font-size: 18px;
+    line-height: : underline;
+    border-bottom: 1px solid #ccc;
+    padding: 10px 2px;
+    margin: 10px 2px;
+    text-align: center;
+}
 
 #user {
 
@@ -158,8 +171,9 @@ input[type=submit] {
 	text-align: center;
 }
 
-#btn-prediksi {
+#btn-preimport  {
 	margin-left: 3px;
+
 }
 
 #kiri li a:hover {

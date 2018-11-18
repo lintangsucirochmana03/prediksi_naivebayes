@@ -31,6 +31,11 @@ input[type=submit]:hover {
     margin-top: 0px;
 }
 
+#inputtraining h2{
+    text-align: center;
+}
+
+
 #update {
     border-radius: 0px;
     padding: 0px;

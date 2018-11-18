@@ -6,6 +6,7 @@ include("koneksi.php");
 	$th_masuk = $_POST["th_masuk"];
 	$semester = $_POST["semester"];
 	$jurusan_asalsekolah = $_POST["jurusan_asalsekolah"];
+	$prodi = $_POST["prodi"];
 	$ips1 = $_POST["ips1"];
 	$ipk = $_POST["ipk"];
 	$tot_sks = $_POST["tot_sks"];
@@ -18,6 +19,7 @@ include("koneksi.php");
 				th_masuk= '$th_masuk',
 				semester='$semester',
 				jurusan_asalsekolah= '$jurusan_asalsekolah',
+				prodi = '$prodi',
 				ips1 = '$ips1',
 				ipk = '$ipk',
 				tot_sks = '$tot_sks',
@@ -32,5 +34,5 @@ include("koneksi.php");
 		die("Gagal memperbaharui data!<br/>");
 	}
 
-	header("location:datatraining.php");
+	header("location:datatesting.php");
 ?>

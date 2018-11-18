@@ -63,7 +63,7 @@
 
    <td>
     <div align="center"><a href="update_testing.php?nim=<?php echo $tampilkan['nim']; ?>"> Update </a></div>
-    <div align="center"><a href="delete.php?nim=<?php echo $tampilkan['nim']; ?>"> Delete </a></div>
+    <div align="center"><a href="deletetesting.php?nim=<?php echo $tampilkan['nim']; ?>"> Delete </a></div>
 
    </td> 
 

@@ -50,4 +50,9 @@ input[type=reset]:hover {
     width: 620px;
     margin: auto;
     margin-top: 3px;
+
+}
+
+#update h1 {
+    text-align: center;
 }

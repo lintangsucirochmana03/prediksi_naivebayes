@@ -10,7 +10,7 @@ session_start();
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <title>Login</title>
-<link rel="stylesheet" href="cobatiga.css">
+<link rel="stylesheet" href="cobalima.css">
 </head>
 
 <body>

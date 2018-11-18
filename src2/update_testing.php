@@ -2,7 +2,7 @@
 <html>
 <head>
   <title>input data training</title>
-<link rel="stylesheet" href="update.css">
+<link rel="stylesheet" href="update1.css">
 
 </head>
 <body>
@@ -28,7 +28,7 @@
  <div id="konten" >
 <form id="update" action="update_prosests.php" method="post">
 
-	<h1>Form Update Data Training</h1>
+	<h2>Form Update Data Testing</h2>
 
 
 	<label for="nim">Nim</label>
@@ -67,6 +67,15 @@
       <option <?php echo $data['jurusan_asalsekolah'] == "Tata Boga" ? 'selected="selected"': '';?> value="Tata Boga">Tata Boga</option>
       <option <?php echo $data['jurusan_asalsekolah'] == "Lain" ? 'selected="selected"': '';?> value="Lain">Lain</option>
     </select>
+
+    <label for="prodi">Prodi</label>
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+    <select id="prodi" name="prodi" value="<?php echo $data['prodi'];?>"/>
+      <option <?php echo $data['prodi'] == "SI" ? 'selected="selected"': '';?> value="SI">Siste Informasi</option>
+      <option <?php echo $data['prodi'] == "TI" ? 'selected="selected"': '';?> value="TI">Teknik Informatika</option>
+    </select>
+
+    <br/>
 
     <label for="ips1">IPS1</label>
     <input type="text" id="ips1" name="ips1"  value="<?php echo $data['ips1'];?>"/>

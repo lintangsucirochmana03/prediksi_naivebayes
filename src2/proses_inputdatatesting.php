@@ -101,7 +101,7 @@
 		die("Gagal menambah data.<br/>");
 	}
 
-	header("location:inputdatatraining.php");
+	header("location:inputdatatesting.php");
 ?>
 
 	

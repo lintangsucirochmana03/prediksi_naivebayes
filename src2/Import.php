@@ -39,7 +39,7 @@
  ?>
 
  <h1 align="center">Data Mahasiswa</h1>
-<div id="btn"><a href='allprediksi.php'><button type='submit' name='btn-prediksi' id='btn-prediksi'>Prediksi</button></a></div>
+<div id="btn"><a href='allprediksi.php'><button type='submit' name='btn-prediksi' id='btn-preimport'>Prediksi</buttonid='btn-prediksi'></a></div>
 <table id="tbl-import" > 
   <tr bgcolor="#CCFFFF"> 
     <th><div align="center"><strong>No</strong></div></th> 
