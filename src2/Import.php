@@ -57,15 +57,7 @@
     <th><div align="center"><strong>Status</strong></div></th> 
     
   </tr> 
-  <?php 
-
-     /* mysql_connect('localhost','root',''); 
-      mysql_select_db('dbmahasiswa'); 
-    
-      $tampil="select * from mahasiswa"; 
-      $qryTampil=mysql_query($tampil); 
-      while ($dataTampil=mysql_fetch_array($qryTampil)) { */
-     ?> 
+  
   <?php 
   $halaman = 10;
   $page = isset($_GET["halaman"]) ? (int)$_GET["halaman"] : 1;

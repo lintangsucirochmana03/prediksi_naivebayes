@@ -139,29 +139,8 @@ $hapus = 1;
 					</tr>
 					<tr>
 						<td width="50%">
-							Sistem ini hanya membantu memprediksi kelulusan setiap mahasiswa, namun mahasiswa dapat lulus dengan tepat atau tidak tergantung dari mahasiswa itu sendiri. Nilai yang harus dicapai di semester 8 adalah :
+							Sistem ini hanya membantu memprediksi kelulusan setiap mahasiswa, namun mahasiswa dapat lulus dengan tepat atau tidak tergantung dari mahasiswa itu sendiri. 
 						</td>
 					</tr>
 		</table>
-		<table id="tbl-detailtiga" >
-                    <tr>
-						<td>IPK</td>
-						<td > :Minimal 2.00 </td>
-					</tr>
-					<tr>
-						<td>Total SKS</td>
-						<td > :Minimal menempuh 144 SKS </td>
-					</tr>
-					<tr>
-						<td>Jum Nilai D</td>
-						<td> :Max 2% dari Total SKS </td>
-					</tr>
-					<tr>
-						<td>Jumlah Nila E</td>
-						<td> :0 (tidak ada nilai E) </td>
-					</tr>
-					<tr>
-						<td>Menyelesaikan skripsi</td>
-					</tr>
-            </table> 
-
+		

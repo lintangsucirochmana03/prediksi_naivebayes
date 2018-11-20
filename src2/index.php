@@ -10,7 +10,7 @@ include('proses_login.php');
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <title>Login</title>
-<link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="style1.css">
 </head>
 
 <body>
@@ -30,10 +30,17 @@ include('proses_login.php');
     </div>
     <div class="checkbox">
       <label>
-        <input type="checkbox"> Remember Me
+        <input type="checkbox" name="setcookie" value="true" id="setcookie"> Remember Me
       </label>
     </div>
+
      <input type="submit" name="login" value="LOGIN">
+
+    <h3> Mahasiswa ? </h3>
+    <div id="btn"><a href='usermahasiswa.php'><button type='submit' name='btn-prediksi' id='btn-preimport'>Buat Akun</buttonid='btn-prediksi'></a></div>
+    
+
+
 
      <?php echo $error; ?>
 
