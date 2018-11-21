@@ -30,7 +30,7 @@ include('proses_login.php');
     </div>
     <div class="checkbox">
       <label>
-        <input type="checkbox" name="setcookie" value="true" id="setcookie"> Remember Me
+        <input type="checkbox" > Remember Me
       </label>
     </div>
 
