@@ -1,0 +1,305 @@
+#header {
+	margin: auto;
+	max-width: 100%;
+	max-height: 800px;
+	
+}
+
+#menu_horisontal {
+	position: relative;
+	width: 80%;
+	height: 80px;
+	float: right;
+	background-color: white;
+
+}
+#kiri {
+	position: relative;
+	width: 20%;
+	height: 880px;
+	background-color: #333;
+	float: left;
+	color: white;
+	
+}
+
+#konten {
+	float: right;
+	width: 80%;
+	height: 800px;
+	background-color: #F0F8FF;
+}
+
+#header h2{
+	text-align: center;
+	color:	#228B22;
+	font-family: Times New Roman;
+}
+#bagiansatu{
+	margin-top: 0px;
+}
+#bagiansatu p {
+	font-family: Times New Roman;
+	font-size: 18px;
+	line-height: : underline;
+	border-bottom: 1px solid #ccc;
+	padding: 10px 2px;
+    margin: 10px 2px;
+    text-align: center;
+
+}
+
+#bagiandua {
+    margin-top: 0px;
+
+}
+
+#bagiandua p{
+	font-family: Times New Roman;
+	font-size: 18px;
+	line-height: : underline;
+	border-bottom: 1px solid #ccc;
+	padding: 10px 2px;
+    margin: 10px 2px;
+    text-align: center;
+}
+
+#bagiantiga {
+    margin-top: 0px;
+
+}
+
+#bagiantiga p{
+    font-family: Times New Roman;
+    font-size: 18px;
+    line-height: : underline;
+    border-bottom: 1px solid #ccc;
+    padding: 10px 2px;
+    margin: 10px 2px;
+    text-align: center;
+}
+
+#user {
+
+	margin-top: 30px;
+}
+
+#gambar {
+	margin-top: 10px;
+}
+#user p{
+	font-family: Times New Roman;
+	font-size: 18px;
+	line-height: : underline;
+	border-bottom: 1px solid #ccc;
+	padding: 10px 2px;
+    margin: 10px 2px;
+    text-align: center;
+}
+
+#kiri li {
+	list-style-type: none;
+	text-align: left;
+}
+
+#kiri li a img {
+	padding: 0px 25px;
+}
+
+#kiri li a {
+	text-decoration: none;
+	width: 95%;
+	display: block;
+	color: white;
+	font-size: 18px;	
+
+}
+
+#kiri ul {
+	padding: 0px;
+}
+
+#import-form {
+	
+	font-family: Times New Roman;
+	font-size: 20px;
+	line-height: : underline;
+	margin-top: 80px;
+	margin-left: 250px;
+	float: auto;
+	padding: 2px 20px;
+
+
+}
+
+input[type=file], select {
+    width: 200px;
+    padding: 18px 2px;
+    margin: 8px 0;
+    display: inline-block;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+
+input[type=submit] {
+    width: 200px;
+    height: 60px;
+    background-color: #4CAF50;
+    color: white;
+    margin: 8px 0;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    padding: 18px 2px;
+}
+
+#btn {
+	width: 70px;
+    height: 20px;
+    background-color: 	#FFFFFF;
+    color: white;
+    margin: 20px;
+    margin-left: 930px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    cursor: pointer;
+    padding: 10px 2px;
+}
+
+#btn a {
+	text-align: center;
+}
+
+#btn-preimport  {
+	margin-left: 3px;
+
+}
+
+#kiri li a:hover {
+	background-color: 	#F5F5DC;
+	color: black;
+	width: 100%;
+}
+
+#tbl-import {
+	font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+    border-collapse: collapse;
+    width: 90%;
+    margin: auto; 
+}
+
+#tbl-paging  {
+	font-size: 16px;
+	margin-left: 55px; 
+	margin-top: 20px;
+    padding: 10px 2px;
+    border: 1px solid #ccc;
+    background-color: 	#FFFFFF;
+    display: inline-block;
+    
+}
+
+
+#tbl-paging a:hover:not(.active) {
+	background-color: #ddd;
+}
+
+#tbl-paging a  {
+    color: black;
+
+    padding: 5px 10px;
+    text-decoration: none;
+    transition: background-color .3s;
+    border: 1px solid #ddd;  
+}
+
+#tbl-import td {
+    border: 1px solid #ddd;
+    padding: 8px;
+}
+
+#tbl-import tr:nth-child(even){background-color: #f2f2f2;}
+
+#tbl-import tr:hover {background-color: #ddd;}
+
+#tbl-import th {
+    padding-top: 12px;
+    padding-bottom: 12px;
+    text-align: left;
+    background-color: #4CAF50;
+    color: white;
+    border: 1px solid #ccc;
+}
+
+#tbl-detail {
+	font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+    border-collapse: collapse;
+    width: 50%;
+    margin-left: 50px; 
+}
+
+#tbl-detail td {
+    border: 0px;
+    padding: 8px;
+}
+
+#tbl-detail th {
+    padding-top: 12px;
+    padding-bottom: 12px;
+    text-align: left;
+   
+}
+
+#tbl-detaildua {
+	font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+    border-collapse: collapse;
+    width: 100%;
+    margin-left: 50px; 
+    margin-top: 50px;
+}
+
+#tbl-detailtiga {
+	font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+    border-collapse: collapse;
+    width: 50%;
+    margin-left: 50px; 
+}
+#tbl-detailtiga th {
+    padding-top: 0px;
+    padding-bottom: 0px;
+    text-align: left;
+   
+}
+#tbl-detailtiga td {
+    border: 0px;
+    padding: 0px;
+}
+
+#prediksi_mahasiswa {
+	width: 200px;
+    height: 50px;
+    background-color: 	#4CAF50;
+    color: white;
+    margin: 20px;
+    margin-left: 420px;
+    margin-top: 100px;
+    border: 1px solid #ccc;
+
+    border-radius: 4px;
+    cursor: pointer;
+    padding: 10px 2px;
+}
+#prediksi_mahasiswa a {
+	text-align: center;
+}
+
+#btn-prediksi {
+	margin-left: 5px;
+    width: 190px;
+    height: 50px;
+}
+
+h2 {
+    text-align: center;
+}
