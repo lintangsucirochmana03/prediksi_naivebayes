@@ -9,6 +9,13 @@
     //Menampilkan Tabel Hasil Prediksi
     echo "<div class='container'>
     <center><h3>Tabel Data Testing </h3></center>
+
+    <form id='cari' name='formcari' method='get' action='datatesting.php'>
+    <label id='cari' >Nim :</label>
+    <input type='text' name='nim'>
+    <input type='submit' value='Cari'>
+    </form>
+
      <table id='tbl-import'>
     <thead class='thead-light'>
       <tr>
@@ -39,8 +46,15 @@
   $result = mysqli_query($connect,"SELECT * FROM Mahasiswa WHERE status IN('BL')");
   $total = mysqli_num_rows($result);
   $pages = ceil($total/$halaman);            
-  $tampil = mysqli_query($connect,"select * from Mahasiswa WHERE status IN('BL') LIMIT $mulai, $halaman")or die(mysql_error);
+  //$tampil = mysqli_query($connect,"select * from Mahasiswa WHERE status IN('BL') LIMIT $mulai, $halaman")or die(mysql_error);
   $no =$mulai+1;
+
+  if(isset($_GET['nim'])){
+    $nim = $_GET['nim'];
+    $tampil = mysqli_query($connect,"select * from Mahasiswa where nim like '%".$nim."%' Order By nim LIMIT $mulai, $halaman")or die(mysql_error);       
+  }else{
+    $tampil = mysqli_query($connect, "select * from Mahasiswa WHERE status IN('BL') Order By nim LIMIT $mulai, $halaman")or die(mysql_error);   
+  }
 
 
    /* $tampil=mysqli_query($connect,"SELECT Nim,JurusanAsal,Prodi,IPS1,IPK,TotalSKS,JumD,JumE,Status_Lulus,Prediksi FROM MahasiswaHasil") or die(mysqli_errno($connect));*/

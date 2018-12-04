@@ -8,14 +8,7 @@
    <?php 
     //Menampilkan Tabel Hasil Prediksi
     echo "<div class='container'>
-    <center><h3>Tabel Data Training </h3></center>
-
-    <form id='cari' name='formcari' method='get' action='datatraining.php'>
-    <label id='cari' >Nim :</label>
-    <input type='text' name='nim'>
-    <input type='submit' value='Cari'>
-    </form>
-
+    <center><h3>Tabel Data Testing </h3></center>
      <table id='tbl-import'>
     <thead class='thead-light'>
       <tr>
@@ -39,30 +32,19 @@
     <tr>
     ";
 
-    
-    
-
 
   $halaman = 10;
-
   $page = isset($_GET["halaman"]) ? (int)$_GET["halaman"] : 1;
   $mulai = ($page>1) ? ($page * $halaman) - $halaman : 0;
-  $result = mysqli_query($connect,"SELECT * FROM Mahasiswa WHERE status IN('lambat', 'tepat')");
+  $result = mysqli_query($connect,"SELECT * FROM Mahasiswa WHERE status IN('BL')");
   $total = mysqli_num_rows($result);
   $pages = ceil($total/$halaman);            
- // $tampil = mysqli_query($connect,"select * from Mahasiswa WHERE status IN('lambat', 'tepat') Order By nim LIMIT $mulai, $halaman")or die(mysql_error);
+  $tampil = mysqli_query($connect,"select * from Mahasiswa WHERE status IN('BL') LIMIT $mulai, $halaman")or die(mysql_error);
   $no =$mulai+1;
-  if(isset($_GET['nim'])){
-    $nim = $_GET['nim'];
-    $tampil = mysqli_query($connect,"select * from Mahasiswa where nim like '%".$nim."%' Order By nim LIMIT $mulai, $halaman")or die(mysql_error);       
-  }else{
-    $tampil = mysqli_query($connect, "select * from Mahasiswa WHERE status IN('lambat', 'tepat') Order By nim LIMIT $mulai, $halaman")or die(mysql_error);   
-  }
-  
-  while($tampilkan = mysqli_fetch_assoc($tampil)){
+
 
    /* $tampil=mysqli_query($connect,"SELECT Nim,JurusanAsal,Prodi,IPS1,IPK,TotalSKS,JumD,JumE,Status_Lulus,Prediksi FROM MahasiswaHasil") or die(mysqli_errno($connect));*/
-    //while($tampilkan=mysqli_fetch_assoc($tampil)){
+    while($tampilkan=mysqli_fetch_assoc($tampil)){
     echo "<tr>";
     echo " <td>". $no++. "</td>";
     echo "<td>".$tampilkan['nim']."</td>";
@@ -77,15 +59,16 @@
     echo "<td>".$tampilkan['jumD']."</td>";
     echo "<td>".$tampilkan['jumE']."</td>";
     echo "<td>" . $tampilkan['status']. "</td>";
-    ?>
-   <td>
-    <div align="center"><a href="update_training.php?nim=<?php echo $tampilkan['nim']; ?>"> Update </a></div>
-    <div align="center"><a href="deletetraining.php?nim=<?php echo $tampilkan['nim']; ?>"> Delete </a></div>
+     ?>
 
-   </td>  
+   <td>
+    <div align="center"><a href="update_testing.php?nim=<?php echo $tampilkan['nim']; ?>"> Update </a></div>
+    <div align="center"><a href="deletetesting.php?nim=<?php echo $tampilkan['nim']; ?>"> Delete </a></div>
+
+   </td> 
+
    <?php 
         echo "</tr>";
-
         
     };
 

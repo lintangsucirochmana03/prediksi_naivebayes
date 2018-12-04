@@ -29,9 +29,7 @@
 	height: 800px;
 	background-color: #F0F8FF;
 }
-#tbl-import th{
-    text-align: center;
-}
+
 #header h2{
 	text-align: center;
 	color:	#228B22;
@@ -192,12 +190,12 @@ input[type=submit] {
 }
 
 #tbl-paging  {
-    font-size: 16px;
-    margin-left: 55px;
-    margin-top: 10px; 
+	font-size: 16px;
+	margin-left: 55px; 
+	margin-top: 20px;
     padding: 10px 2px;
     border: 1px solid #ccc;
-    background-color:   #FFFFFF;
+    background-color: 	#FFFFFF;
     display: inline-block;
     
 }
@@ -231,14 +229,6 @@ input[type=submit] {
     text-align: left;
     background-color: #4CAF50;
     color: white;
-    border: 1px solid #ccc;
-}
-
-#colspan {
-    padding-top: 12px;
-    padding-bottom: 12px;
-    text-align: left;
-    color: black;
     border: 1px solid #ccc;
 }
 
@@ -310,20 +300,6 @@ input[type=submit] {
     height: 50px;
 }
 
-#konten h2 {
+h2 {
     text-align: center;
-    color:  #008B8B;
-    text-decoration: underline;
-}
-
-#konten h4 {
-
-    color:  #A52A2A;
-    
-}
-
-#cari {
-    font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
-    border-collapse: collapse;
-    margin: auto; 
 }

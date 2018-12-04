@@ -9,13 +9,6 @@
     //Menampilkan Tabel Hasil Prediksi
     echo "<div class='container'>
     <center><h3>Tabel Hasil Prediksi Mahasiswa Lulus Lambat </h3></center>
-
-    <form id='cari' name='formcari' method='get' action='datatesting.php'>
-    <label id='cari' >Nim :</label>
-    <input type='text' name='nim'>
-    <input type='submit' value='Cari'>
-    </form>
-
      <table id='tbl-import'>
     <thead class='thead-light'>
       <tr>
@@ -42,18 +35,11 @@
   $halaman = 10;
   $page = isset($_GET["halaman"]) ? (int)$_GET["halaman"] : 1;
   $mulai = ($page>1) ? ($page * $halaman) - $halaman : 0;
-  $result = mysqli_query($connect,"SELECT * FROM MahasiswaHasil WHERE Prediksi IN('Tepat')");
+  $result = mysqli_query($connect,"SELECT * FROM MahasiswaHasil WHERE Prediksi IN('Lambat')");
   $total = mysqli_num_rows($result);
   $pages = ceil($total/$halaman);            
-  //$tampil = mysqli_query($connect,"select * from MahasiswaHasil WHERE Prediksi IN('Tepat') LIMIT $mulai, $halaman")or die(mysql_error);
+  $tampil = mysqli_query($connect,"select * from MahasiswaHasil WHERE Prediksi IN('Lambat') LIMIT $mulai, $halaman")or die(mysql_error);
   $no =$mulai+1;
-
-  if(isset($_GET['nim'])){
-    $nim = $_GET['nim'];
-    $tampil = mysqli_query($connect,"select * from MahasiswaHasil where nim like '%".$nim."%' Order By nim LIMIT $mulai, $halaman")or die(mysql_error);       
-  }else{
-    $tampil = mysqli_query($connect, "select * from MahasiswaHasil WHERE Prediksi IN('Tepat') Order By nim LIMIT $mulai, $halaman")or die(mysql_error);   
-  }
 
 
    /* $tampil=mysqli_query($connect,"SELECT Nim,JurusanAsal,Prodi,IPS1,IPK,TotalSKS,JumD,JumE,Status_Lulus,Prediksi FROM MahasiswaHasil") or die(mysqli_errno($connect));*/

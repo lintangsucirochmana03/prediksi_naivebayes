@@ -192,12 +192,12 @@ input[type=submit] {
 }
 
 #tbl-paging  {
-    font-size: 16px;
-    margin-left: 55px;
-    margin-top: 10px; 
+	font-size: 16px;
+	margin-left: 55px; 
+	margin-top: 10px;
     padding: 10px 2px;
     border: 1px solid #ccc;
-    background-color:   #FFFFFF;
+    background-color: 	#FFFFFF;
     display: inline-block;
     
 }
@@ -320,10 +320,4 @@ input[type=submit] {
 
     color:  #A52A2A;
     
-}
-
-#cari {
-    font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
-    border-collapse: collapse;
-    margin: auto; 
 }

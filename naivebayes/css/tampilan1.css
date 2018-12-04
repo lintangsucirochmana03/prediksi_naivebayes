@@ -192,12 +192,12 @@ input[type=submit] {
 }
 
 #tbl-paging  {
-	font-size: 16px;
-	margin-left: 55px; 
-	margin-top: 10px;
+    font-size: 16px;
+    margin-left: 55px;
+    margin-top: 10px; 
     padding: 10px 2px;
     border: 1px solid #ccc;
-    background-color: 	#FFFFFF;
+    background-color:   #FFFFFF;
     display: inline-block;
     
 }
@@ -319,5 +319,16 @@ input[type=submit] {
 #konten h4 {
 
     color:  #A52A2A;
+    
+}
+
+#cari  {
+    font-size: 16px;
+    margin-left: 55px;
+    margin-top: 10px; 
+    padding: 10px 2px;
+    border: 1px solid #ccc;
+    background-color:   #FFFFFF;
+    display: inline-block;
     
 }

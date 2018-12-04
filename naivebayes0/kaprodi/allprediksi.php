@@ -1,6 +1,6 @@
 <?php
+  	
     require_once "../koneksi.php";
-    include_once 'header.php';
     include_once 'menu.php';
     include 'prediksi_proses.php'
 ?>
@@ -8,14 +8,7 @@
    <?php 
     //Menampilkan Tabel Hasil Prediksi
     echo "<div class='container'>
-    <center><h3>Tabel Hasil Prediksi Mahasiswa Lulus Lambat </h3></center>
-
-    <form id='cari' name='formcari' method='get' action='datatesting.php'>
-    <label id='cari' >Nim :</label>
-    <input type='text' name='nim'>
-    <input type='submit' value='Cari'>
-    </form>
-
+    <center><h3>Tabel Hasil Prediksi </h3></center>
      <table id='tbl-import'>
     <thead class='thead-light'>
       <tr>
@@ -24,6 +17,7 @@
         <th><center>Nama</center></th>
         <th><center>Jurusan Asal Sekolah</center></th>
         <th><center>PRODI</center></th>
+        <th><center>Semester</center></th>
         <th><center>IP Semester 1</center></th>
         <th><center>IPK</center></th>
         <th><center>Total SKS</center></th>
@@ -42,18 +36,11 @@
   $halaman = 10;
   $page = isset($_GET["halaman"]) ? (int)$_GET["halaman"] : 1;
   $mulai = ($page>1) ? ($page * $halaman) - $halaman : 0;
-  $result = mysqli_query($connect,"SELECT * FROM MahasiswaHasil WHERE Prediksi IN('Tepat')");
+  $result = mysqli_query($connect,"SELECT * FROM MahasiswaHasil");
   $total = mysqli_num_rows($result);
   $pages = ceil($total/$halaman);            
-  //$tampil = mysqli_query($connect,"select * from MahasiswaHasil WHERE Prediksi IN('Tepat') LIMIT $mulai, $halaman")or die(mysql_error);
+  $tampil = mysqli_query($connect,"select * from MahasiswaHasil LIMIT $mulai, $halaman")or die(mysql_error);
   $no =$mulai+1;
-
-  if(isset($_GET['nim'])){
-    $nim = $_GET['nim'];
-    $tampil = mysqli_query($connect,"select * from MahasiswaHasil where nim like '%".$nim."%' Order By nim LIMIT $mulai, $halaman")or die(mysql_error);       
-  }else{
-    $tampil = mysqli_query($connect, "select * from MahasiswaHasil WHERE Prediksi IN('Tepat') Order By nim LIMIT $mulai, $halaman")or die(mysql_error);   
-  }
 
 
    /* $tampil=mysqli_query($connect,"SELECT Nim,JurusanAsal,Prodi,IPS1,IPK,TotalSKS,JumD,JumE,Status_Lulus,Prediksi FROM MahasiswaHasil") or die(mysqli_errno($connect));*/
@@ -64,6 +51,7 @@
     echo "<td>".$tampilkan['Nama']."</td>";
     echo "<td>".$tampilkan['JurusanAsal']."</td>";
     echo "<td>".$tampilkan['Prodi']."</td>";
+    echo "<td>".$tampilkan['Semester']."</td>";
     echo "<td>".$tampilkan['IPS1']."</td>";
     echo "<td>".$tampilkan['IPK']."</td>";
     echo "<td>".$tampilkan['TotalSKS']."</td>";
@@ -71,11 +59,10 @@
     echo "<td>".$tampilkan['JumE']."</td>";
     echo "<td>" . $tampilkan['Status_Lulus']. "</td>";
     echo "<td>" . $tampilkan['Prediksi']. "</td>";
-    ?>
-      <td><div align="center"><a href="detail.php?Nim=<?php echo $tampilkan['Nim']; ?>"> Detail </a></div></td>  
+   ?>
+   <td><div align="center"><a href="detail.php?Nim=<?php echo $tampilkan['Nim']; ?>"> Detail </a></div></td>  
    <?php 
-
-    echo "</tr>";
+        echo "</tr>";
         
     };
 
